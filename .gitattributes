@@ -1,0 +1,5 @@
+# Ensure all C and PHP files use LF.
+*.py         eol=lf
+*.cs         eol=lf
+*.sh         eol=lf
+*Dockerfile  eol=lf
