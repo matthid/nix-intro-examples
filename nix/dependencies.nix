@@ -25,6 +25,10 @@
 let
   python_packages = my_python.pkgs;
   unstable_python_packages = unstable_pkgs.my_python.pkgs;
+  python_doctr = pkgs.callPackage ./packages/doctr.nix {
+    pkgs = pkgs;
+    my_python = my_python;
+  };
 in {
   pkgs = pkgs;
   lib = lib;
@@ -34,6 +38,7 @@ in {
     python_packages.numpy
     python_packages.torch-bin
     unstable_python_packages.pytorch-lightning
+    python_doctr
     cudatoolkit
   ];
 }
