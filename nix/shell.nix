@@ -11,6 +11,7 @@ pkgs.mkShell {
     pkgs.curl
     pkgs.linuxPackages.nvidia_x11
     pkgs.ncurses5
+    pkgs.ffmpeg
   ];
   shellHook = ''
     export CUDA_PATH=${dependencies.cudatoolkit}

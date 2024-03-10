@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> {
     overlays = [
       (import ./overlay/replace-torch.nix { })
+      (import ./overlay/ffmpeg.nix)
     ];
     config = {
       allowUnfree = true;
