@@ -2,6 +2,8 @@
 # https://github.com/Staff-d/nix-cuda-docker-example
 {  cudatoolkit
 ,  buildLayeredImage
+,  slurpfileGenerator
+,  genArgs ? {}
 ,  lib
 ,  name
 ,  tag ? null
@@ -41,7 +43,8 @@ in buildLayeredImage {
     contents extraCommands
     maxLayers
     fakeRootCommands enableFakechroot
-    created includeStorePaths;
+    created includeStorePaths
+    slurpfileGenerator genArgs;
 
   config = cudaConfig;
 }

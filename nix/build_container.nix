@@ -3,6 +3,11 @@
 }:
 let
   pkgs = project_dependencies.pkgs;
+  docker_layering = (import (fetchTarball {
+    # URL of the tarball archive of the specific commit, branch, or tag
+    url = "https://github.com/matthid/nix-docker-layering/archive/1.0.0.tar.gz";
+    sha256 = "0g5y363m479b0pcyv0vkma5ji3x5w2hhw0n61g2wgqaxzraaddva";
+  }) { inherit pkgs; });
   lib = project_dependencies.lib;
   cudatoolkit = project_dependencies.cudatoolkit;
   project = import ./project.nix { project_dependencies = project_dependencies; };
@@ -14,9 +19,10 @@ let
   '';
 in import ./docker/buildCudaLayeredImage.nix {
   inherit cudatoolkit;
-  buildLayeredImage = pkgs.dockerTools.streamLayeredImage;
+  buildLayeredImage = docker_layering.streamLayeredImage;
+  slurpfileGenerator = docker_layering.generators.equal;
   lib = pkgs.lib;
-  maxLayers = 2;
+  maxLayers = 20;
   name = "project_nix";
   tag = "latest";
 
